@@ -1,5 +1,7 @@
 """Utils module"""
 import os
+import time
+import logging
 
 from ticketreader import exceptions
 
@@ -38,3 +40,21 @@ class FileHandlerMixin():
         _, file_extension = os.path.splitext(file_path)
         if file_extension not in self.VALID_EXTENSIONS:
             raise exceptions.WrongFileExtension(f"File extension {file_extension} not valid. Valid extensions are: {self.VALID_EXTENSIONS}")
+        
+def log_time(logger: logging.Logger):
+
+    def timer(func):
+        """Timer decorator"""
+        import time
+
+        def wrapper(*args, **kwargs):
+            """Wrapper"""
+            start = time.perf_counter()
+            result = func(*args, **kwargs)
+            end = time.perf_counter()
+            logger.info(f"{func.__name__} took {end - start:.2f} seconds")
+            return result
+        
+        return wrapper
+    
+    return timer
