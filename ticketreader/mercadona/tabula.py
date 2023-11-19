@@ -108,6 +108,10 @@ class MercadonaTabulaStrategy(TabulaParserStrategy):
                 self.tmp['bulk_products_start_index'] = index
                 break
 
+            if isinstance(row[2], str) and row[2] == 'TOTAL (€)':
+                self.tmp['total_row_index'] = index
+                break
+
             product = self._capture_uproduct(row)
             unit_products.append(product)
 
@@ -126,6 +130,11 @@ class MercadonaTabulaStrategy(TabulaParserStrategy):
         """Capture bulk products"""
 
         bulk_products = []
+
+        if 'bulk_products_start_index' not in self.tmp:
+            logger.info('No bulk products found')
+            return bulk_products
+
         for index, row in self.dataframes[1][self.tmp['bulk_products_start_index']:].iterrows():
 
             if isinstance(row[2], str) and row[2] == 'TOTAL (€)':
