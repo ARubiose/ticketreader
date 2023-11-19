@@ -1,6 +1,6 @@
 """Utils module"""
 import os
-import time
+import pathlib
 import logging
 
 from ticketreader import exceptions
@@ -11,7 +11,7 @@ class FileHandlerMixin():
     VALID_EXTENSIONS = []
 
     @property
-    def file_path(self) -> os.PathLike:
+    def file_path(self) -> pathlib.Path:
         """File path"""
         if not hasattr(self, "_file_path"):
             raise AttributeError("File path not set")
@@ -23,7 +23,7 @@ class FileHandlerMixin():
         """File path"""
         self._validate_file_path(file_path=file_path)
         
-        self._file_path = file_path
+        self._file_path = pathlib.Path(file_path)
 
     def _validate_file_path(self, file_path: os.PathLike) -> None:
         """Validate file path"""
@@ -38,10 +38,14 @@ class FileHandlerMixin():
     def _validate_file_extension(self, file_path: os.PathLike) -> None:
         """Validate file extension"""
         _, file_extension = os.path.splitext(file_path)
+        if not self.VALID_EXTENSIONS:
+            raise ValueError("VALID_EXTENSIONS attribute not set")
         if file_extension not in self.VALID_EXTENSIONS:
             raise exceptions.WrongFileExtension(f"File extension {file_extension} not valid. Valid extensions are: {self.VALID_EXTENSIONS}")
         
-def log_time(logger: logging.Logger):
+def log_time(logger_name:str):
+
+    logger = logging.getLogger(logger_name)
 
     def timer(func):
         """Timer decorator"""

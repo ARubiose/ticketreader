@@ -2,4 +2,7 @@
 from .statestrategy import StateParserStrategy
 
 # Using PyPDF - https://pypi.org/project/pypdf/
-from .statestrategy import PyPDFParseContext, PyPDFParseState
+from .pypdfstrategy import PyPDFParseContext, PyPDFParseState
+
+# Using Tabula - https://pypi.org/project/tabula-py/
+from .tabulastrategy import TabulaParserStrategy
