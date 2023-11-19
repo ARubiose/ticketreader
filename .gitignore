@@ -13,5 +13,4 @@ __pycache__/
 data/*
 !data/.gitkeep
 !data/tickets-template.xlsx
-logs/*
-!logs/.gitkeep
+*.log
