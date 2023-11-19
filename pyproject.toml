@@ -5,14 +5,14 @@ description = ""
 authors = ["Arubiose <alvaro.rubio.segovia@gmail.com>"]
 readme = "README.md"
 license = "MIT"
-packages = [
-    { include = "ticketreader", from = "." },
-]
+packages = [{ include = "ticketreader", from = "." }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 pydantic = "^2.4.2"
 pypdf = "^3.17.0"
+tabula-py = "^2.8.2"
+openpyxl = "^3.1.2"
 
 
 [build-system]

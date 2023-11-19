@@ -12,5 +12,6 @@ __pycache__/
 # Package Folders
 data/*
 !data/.gitkeep
+!data/tickets-template.xlsx
 logs/*
 !logs/.gitkeep
